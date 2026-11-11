@@ -7,6 +7,8 @@ import sys
 import tempfile
 import time
 
+STATIC_SERVER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static_server.py")
+
 
 def free_port():
     with socket.socket() as s:
@@ -42,11 +44,10 @@ class Projects:
         log_path = os.path.join(self.root, f"server-{port}.log")
         with open(log_path, "w") as log:
             proc = subprocess.Popen(
-                [sys.executable, "-m", "http.server", str(port), "--bind", "127.0.0.1"],
+                [sys.executable, STATIC_SERVER, str(port)],
                 cwd=directory, stdout=subprocess.DEVNULL, stderr=log,
             )
         self.servers.append(proc)
-        # CI runners can take several seconds to start Python; fail fast only if it actually exited.
         deadline = time.monotonic() + 30
         while time.monotonic() < deadline:
             if proc.poll() is not None:
