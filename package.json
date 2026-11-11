@@ -1,0 +1,14 @@
+{
+  "name": "localhost-tab-titles",
+  "private": true,
+  "description": "Dev tooling for the Localhost Tab Titles extension. The extension itself has no dependencies.",
+  "scripts": {
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "python3 -m unittest discover -s tests -p 'test_*.py' && node --test tests/format.test.mjs",
+    "test:e2e": "playwright test",
+    "package": "./scripts/package.sh"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1"
+  }
+}

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Localhost Tab Titles</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <img src="icons/icon48.png" alt="" width="20" height="20">
+    <h1>Localhost Tab Titles</h1>
+  </header>
+
+  <section id="tab" class="card">
+    <p id="not-local" class="muted" hidden>Open a localhost tab to see and rename it.</p>
+    <div id="local" hidden>
+      <div class="eyebrow">This tab</div>
+      <div id="label" class="label"></div>
+      <dl id="details"></dl>
+      <label class="field">
+        <span>Name for port <b id="port"></b></span>
+        <div class="row">
+          <input id="name" type="text" maxlength="60" autocomplete="off" spellcheck="false">
+          <button id="reset" type="button" class="ghost" hidden>Reset</button>
+        </div>
+        <small class="muted">Applies to every tab on this port. Leave empty to name it automatically.</small>
+      </label>
+    </div>
+  </section>
+
+  <section class="card">
+    <label class="field">
+      <span>Title format</span>
+      <select id="format"></select>
+    </label>
+  </section>
+
+  <section id="helper" class="card">
+    <div class="status"><span id="dot" class="dot"></span><span id="status-text">Checking helper…</span></div>
+    <div id="install" hidden>
+      <p class="muted" id="install-why">To show project and branch names, install the helper (macOS). Paste this in Terminal:</p>
+      <div class="code">
+        <code id="cmd">curl -fsSL https://raw.githubusercontent.com/Jynx-hub/localhost-tab-titles/main/helper/install.sh | bash</code>
+        <button id="copy" type="button" class="ghost">Copy</button>
+      </div>
+      <small class="muted">Then reopen this popup. Without the helper, tabs show <code>localhost:port</code>.</small>
+    </div>
+  </section>
+
+  <footer><a href="https://github.com/Jynx-hub/localhost-tab-titles" target="_blank" rel="noreferrer">GitHub</a></footer>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
