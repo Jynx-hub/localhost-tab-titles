@@ -38,18 +38,26 @@ class Projects:
             with open(os.path.join(directory, "index.html"), "w") as f:
                 f.write(html)
         port = port or free_port()
-        proc = subprocess.Popen(
-            [sys.executable, "-m", "http.server", str(port), "--bind", "127.0.0.1"],
-            cwd=directory, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-        )
+        # Request logs go to a file: an unread pipe would fill up and stall the server.
+        log_path = os.path.join(self.root, f"server-{port}.log")
+        with open(log_path, "w") as log:
+            proc = subprocess.Popen(
+                [sys.executable, "-m", "http.server", str(port), "--bind", "127.0.0.1"],
+                cwd=directory, stdout=subprocess.DEVNULL, stderr=log,
+            )
         self.servers.append(proc)
-        for _ in range(50):
+        # CI runners can take several seconds to start Python; fail fast only if it actually exited.
+        deadline = time.monotonic() + 30
+        while time.monotonic() < deadline:
+            if proc.poll() is not None:
+                with open(log_path) as log:
+                    raise RuntimeError(f"test server on :{port} exited: {log.read()}")
             try:
                 socket.create_connection(("127.0.0.1", port), timeout=0.2).close()
                 return port
             except OSError:
                 time.sleep(0.1)
-        raise RuntimeError("test server didn't start")
+        raise RuntimeError(f"test server on :{port} didn't start within 30s")
 
     def close(self):
         for p in self.servers:
