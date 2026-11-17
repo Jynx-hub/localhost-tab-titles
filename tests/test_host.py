@@ -72,7 +72,7 @@ class InstallerTest(unittest.TestCase):
                     m = json.load(f)
                 self.assertEqual(m["type"], "stdio")
                 self.assertTrue(os.access(m["path"], os.X_OK))
-                self.assertEqual(m["allowed_origins"], ["chrome-extension://ipkpcfbbpicilgfambbgcihgeeodgmlo/"])
+                self.assertEqual(m["allowed_origins"], ["chrome-extension://ipkpcfbbpicilgfambbgcihgeeodgmlo/", "chrome-extension://dconmfdagflkifnfaogmkflnfofiened/"])
             # The installed launcher (path with a space, bare env) answers like the browser expects.
             launcher = os.path.join(tmp, "install dir", "host")
             out = subprocess.run([launcher], input=frame({"ping": True}), capture_output=True, env={}, timeout=10).stdout

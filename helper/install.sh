@@ -8,9 +8,8 @@
 set -euo pipefail
 
 HOST_NAME="com.localhost_tab_titles.helper"
-# Extension IDs allowed to call the helper: the unpacked build (fixed by manifest "key").
-# Add the Chrome Web Store ID here once the listing is live (see RELEASING.md).
-EXTENSION_IDS=("ipkpcfbbpicilgfambbgcihgeeodgmlo")
+# Extension IDs allowed to call the helper: the unpacked dev build and the Chrome Web Store build.
+EXTENSION_IDS=("ipkpcfbbpicilgfambbgcihgeeodgmlo" "dconmfdagflkifnfaogmkflnfofiened")
 RAW_URL="https://raw.githubusercontent.com/Jynx-hub/localhost-tab-titles/main/helper/tab-names-host.py"
 INSTALL_DIR="${LTT_INSTALL_DIR:-$HOME/Library/Application Support/localhost-tab-titles}"
 APP_SUPPORT="$HOME/Library/Application Support"

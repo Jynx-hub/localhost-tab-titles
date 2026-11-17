@@ -20,7 +20,7 @@ Vivaldi, and other Chromium browsers.
 
 ### 1. The extension
 
-From the Chrome Web Store: *coming soon*.
+From the [Chrome Web Store](https://chromewebstore.google.com/detail/dconmfdagflkifnfaogmkflnfofiened).
 
 Or from source:
 
